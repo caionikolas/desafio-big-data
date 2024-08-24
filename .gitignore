@@ -6,6 +6,9 @@
 # Docker
 /data
 
+# Keys
+/private_key.pem
+
 # Logs
 logs
 *.log
