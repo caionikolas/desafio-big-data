@@ -7,7 +7,7 @@
 /data
 
 # Keys
-/private_key.pem
+/Keys
 
 # Logs
 logs
