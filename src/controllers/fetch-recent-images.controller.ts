@@ -4,6 +4,9 @@ import { ZodValidationPipe } from 'src/pipes/zod-validation-pipe'
 import { PrismaService } from 'src/prisma/prisma.service'
 import { z } from 'zod'
 
+import { CurrentUser } from 'src/auth/current-user-decorator'
+import { UserPayLoad } from 'src/auth/jwt.strategy'
+
 const pageQueryParamsSchema = z
   .string()
   .optional()
@@ -23,14 +26,20 @@ export class FetchRecentImagesController {
   @Get()
   async handle(
     @Query('page', queryValidationPipe) page: PageQueryParamsSchema,
+    @CurrentUser() user: UserPayLoad,
   ) {
-    const perPage = 1
+    const userId = user.sub
+
+    const perPage = 5
 
     const images = await this.prisma.image.findMany({
       take: perPage,
       skip: (page - 1) * perPage,
       orderBy: {
         uploadAt: 'desc',
+      },
+      where: {
+        userId,
       },
     })
 

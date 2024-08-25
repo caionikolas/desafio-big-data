@@ -45,7 +45,8 @@ export class UploadImagesController {
     await this.prisma.image.create({
       data: {
         userId,
-        url: details?.url,
+        cloudId: details.public_id,
+        url: details.url,
         uploadAt: details?.created_at,
       },
     })

@@ -8,6 +8,7 @@ import { AuthenticateController } from './controllers/authenticate.controller'
 import { UploadImagesController } from './controllers/upload-images.controller'
 import { FetchRecentImagesController } from './controllers/fetch-recent-images.controller'
 import { CloudinaryModule } from './cloudinary/cloudinary.module'
+import { DeleteImageController } from './controllers/delete-image.controller'
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module'
     AuthenticateController,
     UploadImagesController,
     FetchRecentImagesController,
+    DeleteImageController,
   ],
   providers: [PrismaService],
 })

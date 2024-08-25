@@ -7,9 +7,12 @@ Content-Type: application/json
 
 {
   "name": "Nikolas",
-  "email": "nikolas@email.com",
+  "email": "Nikolas@email.com",
   "password": "54321"
 }
+
+###
+GET {{baseUrl}}/accounts/users
 
 ###
 # @name authenticate
@@ -17,7 +20,7 @@ POST {{baseUrl}}/sessions
 Content-Type: application/json
 
 {
-  "email": "nikolas@email.com",
+  "email": "Nikolas@email.com",
   "password": "54321"
 }
 
@@ -26,10 +29,6 @@ Content-Type: application/json
 POST {{baseUrl}}/images
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
-
-{
-  "url": "teste2-imagem.com"
-}
 
 ###
 # @name fetch_recent_images

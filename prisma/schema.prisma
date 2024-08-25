@@ -19,6 +19,7 @@ model User {
 
 model Image {
   id       Int      @id @default(autoincrement())
+  cloudId  String   @unique
   url      String
   uploadAt DateTime @default(now()) @map("upload_at")
   userId   String   @map("(user_id)")
