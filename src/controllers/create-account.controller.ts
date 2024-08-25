@@ -48,11 +48,4 @@ export class CreateAccountController {
       },
     })
   }
-
-  @Get('/users')
-  async getUsers() {
-    const users = await this.prisma.user.findMany()
-
-    return users
-  }
 }
