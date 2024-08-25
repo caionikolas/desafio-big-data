@@ -1,56 +1,52 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common'
+import {
+  BadRequestException,
+  Controller,
+  Post,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common'
+import { FileInterceptor } from '@nestjs/platform-express'
 import { CurrentUser } from 'src/auth/current-user-decorator'
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
 import { UserPayLoad } from 'src/auth/jwt.strategy'
-import { ZodValidationPipe } from 'src/pipes/zod-validation-pipe'
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service'
 import { PrismaService } from 'src/prisma/prisma.service'
-import { z } from 'zod'
+import { UploadApiErrorResponse, UploadApiResponse } from 'cloudinary'
 
-// cloudinary-response.ts
-import {
-  v2 as cloudinary,
-  UploadApiErrorResponse,
-  UploadApiResponse,
-} from 'cloudinary'
-
-export type CloudinaryResponse = UploadApiResponse | UploadApiErrorResponse
-
-export const CloudinaryProvider = {
-  provide: 'CLOUDINARY',
-  useFactory: () => {
-    return cloudinary.config({
-      cloud_name: process.env.CLOUDINARY_NAME,
-      api_key: process.env.CLOUDINARY_API_KEY,
-      api_secret: process.env.CLOUDINARY_API_SECRET,
-    })
-  },
-}
-
-const uploadImagesBodySchema = z.object({
-  url: z.string(),
-})
-
-const bodyValidationPipe = new ZodValidationPipe(uploadImagesBodySchema)
-
-type UploadImagesBodySchema = z.infer<typeof uploadImagesBodySchema>
+export type CloudinaryResponse =
+  | UploadApiResponse
+  | UploadApiErrorResponse
+  | undefined
 
 @Controller('/images')
 @UseGuards(JwtAuthGuard)
 export class UploadImagesController {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private cloudinaryService: CloudinaryService,
+  ) {}
 
-  @Post()
-  async handle(
-    @Body(bodyValidationPipe) body: UploadImagesBodySchema,
+  @Post('upload')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadImage(
+    @UploadedFile() file: Express.Multer.File,
     @CurrentUser() user: UserPayLoad,
   ) {
-    const { url } = body
     const userId = user.sub
+
+    const details: CloudinaryResponse =
+      await this.cloudinaryService.uploadFile(file)
+
+    if (!details?.url) {
+      throw new BadRequestException('Error when loading file')
+    }
 
     await this.prisma.image.create({
       data: {
         userId,
-        url,
+        url: details?.url,
+        uploadAt: details?.created_at,
       },
     })
   }

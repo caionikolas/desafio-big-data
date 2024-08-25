@@ -1,0 +1,1 @@
+// cloudinary-response.ts

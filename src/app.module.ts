@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module'
 import { AuthenticateController } from './controllers/authenticate.controller'
 import { UploadImagesController } from './controllers/upload-images.controller'
 import { FetchRecentImagesController } from './controllers/fetch-recent-images.controller'
+import { CloudinaryModule } from './cloudinary/cloudinary.module'
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { FetchRecentImagesController } from './controllers/fetch-recent-images.c
       isGlobal: true,
     }),
     AuthModule,
+    CloudinaryModule,
   ],
   controllers: [
     CreateAccountController,
