@@ -24,3 +24,25 @@ Criar uma API usando NestJS que permita o upload, armazenamento e gerenciamento 
 3. Crie um arquivo `.env` na raiz do projeto e insira suas credencias. Utilize o arquivo `.env.example` como base.
 4. Execute o projeto com o comando `npm start`
 
+## API Endpoints
+A API fornece os seguintes endpoints:
+
+```markdown
+POST /accounts - Registra um novo usuário.
+
+POST /sessions - Autentica um usuário
+
+POST /images/upload - Faz upload de uma imagem na Cloudinary e registra uma nova imagem banco de dados.
+
+GET /images - Obtem todas as imagens de um usuário autenticado
+
+DELETE /images/{cloudId} - Deleta uma imagem do servidor do cloudinary e do banco de dados de acordo com o seu cloudId
+```
+
+## Docker
+
+Você pode rodar esse projeto com Docker seguindo os seguintes comandos:
+
+```bash
+$ docker-compose up
+```
