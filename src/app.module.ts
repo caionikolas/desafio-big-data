@@ -6,6 +6,7 @@ import { envSchema } from './env'
 import { AuthModule } from './auth/auth.module'
 import { AuthenticateController } from './controllers/authenticate.controller'
 import { UploadImagesController } from './controllers/upload-images.controller'
+import { FetchRecentImagesController } from './controllers/fetch-recent-images.controller'
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { UploadImagesController } from './controllers/upload-images.controller'
     CreateAccountController,
     AuthenticateController,
     UploadImagesController,
+    FetchRecentImagesController,
   ],
   providers: [PrismaService],
 })

@@ -26,3 +26,13 @@ Content-Type: application/json
 POST {{baseUrl}}/images
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
+
+{
+  "url": "teste2-imagem.com"
+}
+
+###
+# @name fetch_recent_images
+GET {{baseUrl}}/images
+Content-Type: application/json
+Authorization: Bearer {{authToken}}

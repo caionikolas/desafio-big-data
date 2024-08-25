@@ -18,11 +18,12 @@ model User {
 }
 
 model Image {
-  id     String @id @default(uuid())
-  URL    String
-  userId String @map("(user_id)")
+  id       Int      @id @default(autoincrement())
+  url      String
+  uploadAt DateTime @default(now()) @map("upload_at")
+  userId   String   @map("(user_id)")
 
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("images")
 }
