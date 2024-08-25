@@ -6,6 +6,9 @@
 # Docker
 /data
 
+#http
+/http
+
 # Keys
 /Keys
 
