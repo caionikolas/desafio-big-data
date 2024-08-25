@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common'
 import { v2 as cloudinary } from 'cloudinary'
 import { CloudinaryResponse } from 'src/controllers/upload-images.controller'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-import streamifier from 'streamifier'
+const streamifier = require('streamifier')
 
 @Injectable()
 export class CloudinaryService {
