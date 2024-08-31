@@ -29,14 +29,33 @@ A API fornece os seguintes endpoints:
 
 ```markdown
 POST /accounts - Registra um novo usuário.
+{
+   "name": string
+   "email": string
+   "senha": string
+}
+
 
 POST /sessions - Autentica um usuário
+{
+   "email": string
+   "senha": string
+}
+
+return "access_token": string
 
 POST /images/upload - Faz upload de uma imagem na Cloudinary e registra uma nova imagem banco de dados.
+- Auth: access_token
+- Form: file
 
 GET /images - Obtem todas as imagens de um usuário autenticado
+- Auth: access_token
 
 DELETE /images/{cloudId} - Deleta uma imagem do servidor do cloudinary e do banco de dados de acordo com o seu cloudId
+- Auth: access_token
+{
+   "cloudId": string
+}
 ```
 
 ## Docker
