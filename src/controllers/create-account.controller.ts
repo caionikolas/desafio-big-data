@@ -3,7 +3,6 @@ import {
   Body,
   Controller,
   Post,
-  Get,
   UsePipes,
 } from '@nestjs/common'
 import { PrismaService } from 'src/prisma/prisma.service'
